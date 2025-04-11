@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('analysis_result') }}">Analysis</a>
+        <a href="{{ url_for('daily_log') }}">Daily Log</a>
+    </nav>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <script>
+        function uploadImage() {
+            const imageInput = document.getElementById('imageUpload');
+            if (!imageInput.files[0]) {
+                alert('Please select an image.');
+                return;
+            }
+            const formData = new FormData();
+            formData.append('image', imageInput.files[0]);
+            fetch('/api/track-food', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                window.location.href = '/analysis';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to analyze image.');
+            });
+        }
+    </script>
+</body>
+</html>

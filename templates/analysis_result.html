@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Food Analysis Result</h1>
+    {% if result %}
+        <section>
+            <h2>Detected Foods</h2>
+            <ul>
+                {% for food in result.foods %}
+                    <li>
+                        {{ food.name }} ({{ food.portion }} portion):
+                        {{ food.calories }} kcal, {{ food.protein }}g protein,
+                        {{ food.carbs }}g carbs, {{ food.fat }}g fat
+                    </li>
+                {% endfor %}
+            </ul>
+            <h3>Total</h3>
+            <p>Calories: {{ result.total.calories }} kcal</p>
+            <p>Protein: {{ result.total.protein }}g</p>
+            <p>Carbs: {{ result.total.carbs }}g</p>
+            <p>Fat: {{ result.total.fat }}g</p>
+            <button onclick="confirmResult()">Confirm and Log</button>
+        </section>
+    {% else %}
+        <p>No analysis yet. Upload an image to start.</p>
+    {% endif %}
+{% endblock %}

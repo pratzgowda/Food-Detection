@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Daily Nutrition Log</h1>
+    <section>
+        {% if logs %}
+            <ul>
+                {% for log in logs %}
+                    <li>
+                        {{ log.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}:
+                        {% for food in log.foods %}
+                            {{ food.name }} ({{ food.portion }}),
+                        {% endfor %}
+                        Total: {{ log.total.calories }} kcal
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No logs available.</p>
+        {% endif %}
+    </section>
+{% endblock %}

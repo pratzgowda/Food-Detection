@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Food Tracker</h1>
+    <section>
+        <h2>Capture Your Meal</h2>
+        <input type="file" id="imageUpload" accept="image/*" capture="camera">
+        <button onclick="uploadImage()">Analyze Food</button>
+    </section>
+{% endblock %}
